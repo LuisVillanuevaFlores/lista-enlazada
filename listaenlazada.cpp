@@ -19,7 +19,6 @@ public:
         Nodo*nuevo=new Nodo(a);
         if(inicio==NULL){
             inicio=nuevo;
-            //cout<<inicio->dato<<endl;
             return;
         }
         Nodo*aux=inicio;
