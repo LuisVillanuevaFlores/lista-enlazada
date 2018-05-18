@@ -125,7 +125,6 @@ int main(){
     Lista lista;
 
     lista.insertar(0);
-    //cout<<lista.inicio->dato<<endl;
     lista.insertar(2);
     lista.insertar(1);
     lista.insertar(4);
