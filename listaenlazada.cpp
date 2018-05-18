@@ -1,19 +1,30 @@
 #include <iostream>
 
 using namespace std;
+class LIstaEnla;
 class Nodo{
-public:
+    friend LIstaEnla;
     int dato;
-    Nodo *sig;
-    Nodo(int a=0){this->dato=a;this->sig=NULL;};
+    Nodo *siguiente;
+    Nodo(int a=0){this->dato=a;this->siguiente=NULL;};
 
 
 };
-class Lista{
+class LIstaEnla{
 public:
     Nodo*inicio;
-    Lista(){this->inicio=NULL;}
+    LIstaEnla(){this->inicio=NULL;}
 
+    void tamanho(){
+        int t=0;
+        Nodo *actual;
+        actual=inicio;
+        while(actual!=NULL){
+            t++;
+            actual=actual->siguiente;
+        }
+     cout<<t<<endl;
+    }
 
     void insertar(int a){
         Nodo*nuevo=new Nodo(a);
@@ -22,40 +33,29 @@ public:
             return;
         }
         Nodo*aux=inicio;
-        Nodo*aux2=aux;
-        while((aux!=NULL)&&(a<aux->dato)){
+        Nodo*aux2;
+        while((aux!=NULL)&&(a>aux->dato)){
             aux2=aux;
-            aux=aux->sig;
+            aux=aux->siguiente;
         }
-        if(aux==this->inicio){
-            nuevo->sig=inicio;
+        if(aux==inicio){
+            nuevo->siguiente=inicio;
             inicio=nuevo;
         }
         else{
-            aux2->sig=nuevo;
+            aux2->siguiente=nuevo;
 
         }
-        nuevo->sig=aux;
+        nuevo->siguiente=aux;
     }
     void mostrar(){
         Nodo*actual;
         actual=inicio;
         while(actual!=NULL){
             cout<<actual->dato<<" ";
-            actual=actual->sig;
+            actual=actual->siguiente;
         }
         cout<<endl;
-    }
-
-    void tamanho(){
-        int t=0;
-        Nodo *actual;
-        actual=inicio;
-        while(actual!=NULL){
-            t++;
-            actual=actual->sig;
-        }
-     cout<<t<<endl;
     }
 
     void buscar(int x){
@@ -66,7 +66,7 @@ public:
         while(actual!=NULL){
                 c++;
             if(actual->dato==x){a = false;break;}
-            else{a= true; actual=actual->sig;}
+            else{a= true; actual=actual->siguiente;}
 
         }
 
@@ -78,19 +78,19 @@ public:
 
      void elimval(int x){
         Nodo *aux=inicio;
-        Nodo *aux2=inicio->sig;
+        Nodo *aux2=inicio->siguiente;
         if(x==inicio->dato){
-            inicio=inicio->sig;
+            inicio=inicio->siguiente;
         }
         else{
             while(aux2!=NULL){
                 if(x==aux2->dato){
-                    aux->sig=aux2->sig;
+                    aux->siguiente=aux2->siguiente;
                     return;
                 }
                 else{
-                aux=aux->sig;
-                aux2=aux2->sig;
+                aux=aux->siguiente;
+                aux2=aux2->siguiente;
             }}
 
         }
@@ -99,30 +99,40 @@ public:
     void elimpo(int x){
         int c=1;
         Nodo *aux=inicio;
-        Nodo *aux2=inicio->sig;
+        Nodo *aux2=inicio->siguiente;
         if(x==c){
-            inicio=inicio->sig;
+            inicio=inicio->siguiente;
         }
         else{
             while(aux2!=NULL){
                     c++;
                 if(x==c){
-                    aux->sig=aux2->sig;
+                    aux->siguiente=aux2->siguiente;
                     return;
                 }
                 else{
-                aux=aux->sig;
-                aux2=aux2->sig;
+                aux=aux->siguiente;
+                aux2=aux2->siguiente;
             }}
 
         }
     }
 
 
+    void elimlista(){
+        while(inicio!=NULL){
+            inicio=inicio->siguiente;
+        }
+
+
+
+    }
+
+
 
 };
 int main(){
-    Lista lista;
+    LIstaEnla lista;
 
     lista.insertar(0);
     lista.insertar(2);
@@ -135,6 +145,10 @@ int main(){
     lista.mostrar();
     lista.elimpo(1);
     lista.mostrar();
+    lista.elimlista();
+    lista.mostrar();
+    cout<<"Tamano es :";lista.tamanho();
+
 
 
 }
